@@ -1,6 +1,6 @@
 === WhatsApp Contact Form 7 Integration ===
 Contributors: vnbenny
-Donate link: http://www.wassame.com/plugins/whatsapp-contact-form-7/
+Donate link: http://www.wassame.com/plugins/whatsapp-contact-form-7/?source=wordpress-wacf7
 Tags: form, forms, contact form, whatsapp, contact form 7, forward, mobile, plugin, integration
 Requires at least: 3.0.1
 Tested up to: 3.9.1
