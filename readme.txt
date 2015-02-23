@@ -12,10 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WhatsApp Contact Form 7 Integration is a WhatsApp notification plugin for WordPress that makes it really simple to send your Contact Form 7 forms directly to your WhatsApp account.
 
-In the free version, you can insert your WhatsApp credentials, everytime someone contacts you through Contact From 7, it will send a WhatsApp message to itself notifying you instantly wherever you are!
-
-When obtained a key and unlocked the pro version, as a service we will forward the message to your WhatsApp account for those who do not have access to the credentials themselves.
-
+In the free version, you can insert your WhatsApp credentials, every time someone contacts you through Contact From 7, it will send a WhatsApp message to a mobile number you specify notifying you instantly wherever you are!
 
 = Features =
 
@@ -34,9 +31,7 @@ This section describes how to install the plugin and get it working.
 
 == Screenshots ==
 
-1. **Free/Pro** - 1/2
-2. **Free** - 2/2
-3. **pro** - 2/2
+2. **Free**
 
 == Frequently Asked Questions ==
 
@@ -44,11 +39,10 @@ This section describes how to install the plugin and get it working.
 
 Search for WART on github 
 
-= In the free version, why is the system not sending me a WhatsApp when I submit the form? =
+= Why is the system not sending me a WhatsApp when I submit the form? 
 
 You should double check your WhatsApp credentials are correct, there is no checking involved, if the contact form fails to send, your credentials are probably incorrect!
 
-<a href="http://www.wassame.com/plugins/whatsapp-contact-form-7/?source=wordpress-wacf7">Buy Upgrade</a>
 
 == Changelog ==
 

@@ -12,23 +12,21 @@ class WhatsAppContactForm7_Admin {
 	
 	public static function init_hooks() {
 		add_action( 'admin_menu', array( 'WhatsAppContactForm7_Admin', 'admin_menu' ) );
-		add_action( 'admin_init', array( 'WhatsAppContactForm7_Admin','register_admin_settings') );
+		add_action( 'admin_init', array( 'WhatsAppContactForm7_Admin', 'register_admin_settings') );
 		add_action( 'admin_head', array( 'WhatsAppContactForm7_Admin', 'css' ) );		
 		self::$initiated = true;
 
 	}
-	function register_admin_settings() {
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-wassame-key' ); 
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-wassame-active' ); 
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-wassame-mobile' ); 		
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-msisdn' ); 
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-password' ); 
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-id' ); 
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-display-name' ); 
-		register_setting( 'whatsapp-contact-form-7', 'wacf7-send-pro' ); 
+	public static function register_admin_settings() {	
+		register_setting( 'whatsapp_contact_form_7', 'wacf7_msisdn' ); 
+		register_setting( 'whatsapp_contact_form_7', 'wacf7_password' ); 
+		register_setting( 'whatsapp_contact_form_7', 'wacf7_id' ); 
+		register_setting( 'whatsapp_contact_form_7', 'wacf7_display_name' ); 
+		register_setting( 'whatsapp_contact_form_7', 'wacf7_send_to' ); 
+		register_setting( 'whatsapp_contact_form_7', 'wacf7_installed' ); 
 	} 
 	
-	function css(){
+	public static function css(){
 		?>
 		<style type="text/css">
 		.wacf7-success, .wacf7-danger, .wacf7-warning{
@@ -57,185 +55,361 @@ class WhatsAppContactForm7_Admin {
 		.wacf7-input{
 			padding:5px; width:500px;
 		}
+		.bg{
+			background:url('<?=WACF7__PLUGIN_URL?>assets/bg.png') repeat;
+		}
+		.wame_checkbox(){
+			float:left; padding:10px;
+		}
+		.boot-content {
+		  	position: relative;
+			width:100%;
+			 height:auto;
+		}
+		.boot-clear{
+			width:100%; height:1px; clear:both;
+		}
+		.row {
+			width:100%;
+		  	margin-bottom: 20px;
+			height:auto;
+			margin-top:15px;
+		}
+		.boot-contpad{
+			margin-right:20px; width:auto; height:auto;
+		}
+		.boot-allpadd{
+			padding:15px;
+		}
+		.boot-right{
+			float:right;
+		}
+		.boot-box{
+			background: #fbfbfb;
+			padding: 20px 20px 30px;
+			margin-right:10px;
+			border-radius: 6px;
+			-moz-border-radius: 6px;
+			-webkit-border-radius: 6px;
+			-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		}
+		.boot-box a{
+			color:#8fc04e!important;
+		}
+		.boot-plugin{
+			padding:20px; position:relative;
+		}
+		.btn-color {
+			border: 1px solid #8fc04e;
+			background: #8fc04e;
+		}
+		.btn {
+			outline: 0;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+		.btn {
+			color:white;
+			font-size: 14px;
+			font-weight: 600;
+			text-shadow: none;
+			background-image: none;
+			border-color: none;
+			border-bottom-color: none;
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+		}
+		
+		.boot-type{
+			background: #8fc04e;
+			position: absolute;
+			width: auto;
+			height: auto;
+			right: 10px;
+			top: 10px;
+			color: white;
+			padding: 10px;
+			font-size:18px;
+			padding-top: 12px;
+			z-index: 9;
+			border-radius: 10px
+		}
+		.boot-installed{
+			width:80%; height:auto; padding:10%; background:#8fc04e; color:white; left:0px; right:0px; bottom:20px; position:absolute; text-align:center; opacity:0.6;
+		}
+		.btn-color:hover{
+		  	background: #4b5056!important;
+		   	color:#fff!important;
+		  	border:1px solid #4b5056;
+		}
+	  	.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+	    	float: left;
+			position: relative;
+			min-height: 1px;
+	  	}
+	  	.col-md-12 {
+	   	 	width: 100%;
+	  	}
+	  	.col-md-11 {
+	    	width: 91.66666667%;
+	  	}
+	  	.col-md-10 {
+	   	 	width: 83.33333333%;
+	  	}
+	  	.col-md-9 {
+	    	width: 75%;
+	  	}
+	  	.col-md-8 {
+	    	width: 66.66666667%;
+	  	}
+	  	.col-md-7 {
+	    	width: 58.33333333%;
+	  	}
+		.col-md-6 {
+			width: 50%;
+		}
+		.col-md-5 {
+			width: 41.66666667%;
+		}
+		.col-md-4 {
+			width: 33.33333333%;
+		}
+		.col-md-3 {
+			width: 25%;
+		}
+		.col-md-2 {
+			width: 16.66666667%;
+		}
+		.col-md-1 {
+			width: 8.33333333%;
+		}
+	  
+	  
+		.container .jumbotron,
+		.container-fluid .jumbotron {
+			border-radius: 6px;
+		}
+		.jumbotron .container {
+			max-width: 100%;
+		}
+	  
+	    .form-inline .form-group {
+	     	display: inline-block;
+	      	margin-bottom: 0;
+	      	vertical-align: middle;
+	    }
+		.form-control {
+			display: block;
+			width: 100%;
+			height: 34px;
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			color: #555;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+			-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+			-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+			transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		}
+		hr {
+			display: block;
+			width: 100%;
+			height: 1px;
+			border: 0;
+			border-top: 1px solid #eceae6;
+			margin: 1em 0;
+			padding: 0;
+		}
+		@media screen and (min-width: 768px) {
+			.jumbotron {
+				padding: 48px 0;
+			}
+			.container .jumbotron,
+			.container-fluid .jumbotron {
+				padding-right: 60px;
+				padding-left: 60px;
+			}
+			.jumbotron h1,
+			.jumbotron .h1 {
+				font-size: 63px;
+			}
+		}
+		.boot-nomar{
+			margin:0px;
+		}
+		.list-group-item {
+			position: relative;
+			display: block;
+			padding: 10px 15px;
+			margin-bottom: -1px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			color:#8fc04e!important;
+		}	
+		.alert{
+			width:100%; margin:auto; text-align:center; border:1px solid #bb3d3d; background:#df5959; font-size:16px; color:white; margin-bottom:15px; border-radius: 4px;
+		}
+		.success{
+			width:100%; margin:auto; text-align:center; border:1px solid #4BBB3D!important; background:#78C36B!important; font-size:16px; color:white; margin-bottom:15px;border-radius: 4px; padding:15px;
+		}
+		
 		</style>
 		<?php
 	}
-	function settings(){
+	public static function settings(){
+		
+		$installed = get_option('wacf7_installed');
+		if($installed === false){
+	       	update_option( 'wacf7_msisdn', '');
+			update_option( 'wacf7_password', '');
+			update_option( 'wacf7_id', '');
+			update_option( 'wacf7_display_name', '');
+			update_option( 'wacf7_send_to', '');
+			update_option( 'wacf7_installed', 1);
+		}
 		?>
-		<div class="wrap">
-			<?php
-
-			if(isset($_POST['free-submit'])){
-				$wacf7_msisdn = $_POST['wacf7-msisdn'];
-				$wacf7_password = $_POST['wacf7-password'];
-				$wacf7_id = $_POST['wacf7-id'];
-				$wacf7_display_name = $_POST['wacf7-display-name'];
-				update_option( 'wacf7-msisdn', $wacf7_msisdn );
-				update_option( 'wacf7-password', $wacf7_password );
-				update_option( 'wacf7-id', $wacf7_id );
-				update_option( 'wacf7-display-name', $wacf7_display_name );
-			}
-			if(isset($_POST['pro-submit'])){
-				$wacf7_key = $_POST['wacf7-wassame-key'];			
-				$wacf7_mobile = $_POST['wacf7-wassame-mobile'];	
-				$wacf7_pro = $_POST['wacf7-send-pro'];
-				update_option( 'wacf7-wassame-key', $wacf7_key );
-				update_option( 'wacf7-wassame-mobile', $wacf7_mobile );	
-				update_option( 'wacf7-send-pro', $wacf7_pro );				
-			}
-			
-			if(isset($_POST['verify'])){
-				$wame = new WhatsAppContactForm7();
-				$number = trim($_POST['number']);
-				$number = str_replace(' ', '', $number);
-				$v_obj = $wame->http_verify($number);
-				$v_result = json_decode($v_obj['body'], true);
-				if($v_result['res'] == 1){
-					update_option( 'wacf7-wassame-active', 1 );
-					update_option( 'wacf7-wassame-mobile', $number );
-					echo '<div class="wacf7-success"><b>'.__('Success', 'whatsapp-contact-form-7').'</b> '.$v_result['msg'].'</div>';	
-				}
-				else{
-					update_option( 'wacf7-wassame-active', 0 );
-					echo '<div class="wacf7-danger"><b>'.__('Error', 'whatsapp-contact-form-7').'</b> '.$v_result['msg'].'</div>';
-				}
-			}
-			if(isset($_POST['update'])){
-				$wame = new WhatsAppContactForm7();
-				$number = trim($_POST['number']);
-				$number = str_replace(' ', '', $number);
-				$v_obj = $wame->http_update($number);
-				$v_result = json_decode($v_obj['body'], true);
-				if($v_result['res'] == 1){
-					update_option( 'wacf7-wassame-mobile', $number );
-					echo '<div class="wacf7-success"><b>'.__('Success', 'whatsapp-contact-form-7').'</b> '.$v_result['msg'].'</div>';	
-				}
-				else{
-					echo '<div class="wacf7-danger"><b>'.__('Error', 'whatsapp-contact-form-7').'</b> '.$v_result['msg'].'</div>';
-				}
-			}
-			$option2 = get_option('wacf7-wassame-active');
-			
-			
-			function ilc_admin_tabs( $current ) {
-			    $tabs = array( 'free-version' => 'Free version Settings', 'pro-version' => 'Pro version settings');
-			    echo '<div id="icon-themes" class="icon32"><br></div>';
-			    echo '<h2 class="nav-tab-wrapper">';
-			    foreach( $tabs as $tab => $name ){
-			        $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-			        echo "<a class='nav-tab$class' href='?page=whatsapp-contact-form-7-settings&tab=$tab'>$name</a>";
-
-			    }
-			    echo '</h2>';
-			}
-			
-			
-			if(isset($_GET['tab'])){
-				$tab = $_GET['tab'];
-			}
-			else{
-				$tab = 'free-version';
-			}
-			
-			echo ilc_admin_tabs($tab);
-			if($tab == 'pro-version'){
-				if($option2 == 0){
-					?>
-					<div class="update-nag"><b><?php echo __('Warning', 'whatsapp-contact-form-7'); ?>:</b> <?php echo __('To make the pro version functional you must purchase a key at', 'whatsapp-contact-form-7'); ?> <a href="http://wassame.com/plugins/whatsapp-contact-form-7/?source=wacf7">Wassame.com</a></br><b><?php echo __('Important', 'whatsapp-contact-form-7'); ?>:</b> <?php echo __('The pro version will forward your contact form 7 form to your WhatsApp account', 'whatsapp-contact-form-7'); ?></div>
-					<?php
-				}
-				$pro = get_option('wacf7-send-pro');
-			?>			
-			<div class="update-nag"><span style="font-size:12px; color:gray;"><?php echo __('With our pro service you can forward all your contact form 7 messages to your WhatsApp account instantly, the messages will appear to come from one of our numbers and will have the full name, subject, email and message included! to purchase a key or buy credits click', 'whatsapp-contact-form-7'); ?> <a href="http://wassame.com/plugins/whatsapp-contact-form-7/?source=wacf7"><?php echo __('here', 'whatsapp-contact-form-7'); ?></a></span></span></div>
-			<form method="post" action="">
-				<h2><?php echo __('Enable Pro?', 'whatsapp-contact-form-7'); ?></h2>
-				<input type="checkbox" <?php if($pro == 'on'){ echo 'checked';} ?> name="wacf7-send-pro"/> <?php echo __('Pro version enabled? (This will disable the free version)', 'whatsapp-contact-form-7'); ?>
-				<h2>1. <?php echo __('Type in your key', 'whatsapp-contact-form-7'); ?></h2>
-				<table class="form-table">
-					<tbody>
-						<tr>
-							<th scope="row"><label for="mailserver_url"><?php echo __('Activation key', 'whatsapp-contact-form-7'); ?></label></th>
-							<td><input class="wacf7-input" type="text" name="wacf7-wassame-key" value="<?php echo get_option('wacf7-wassame-key'); ?>" placeholder="Activation key"></br>
-								<span style="font-size:12px; color:black;"><?php echo __('Please do not lose this key, if you wish to transfer the domain you must', 'whatsapp-contact-form-7'); ?> <a href="mailto:sales@wassame.com" target="_top"><?php echo __('contact me directly', 'whatsapp-contact-form-7'); ?></a>, <?php echo __('providing your name, current domain & key along with the new domain you would like to install the plugin on!', 'whatsapp-contact-form-7'); ?></span>
-							</td>
-						</tr>
-					</body>
-				</table>
-				<input type="hidden" name="wacf7-wassame-mobile" value="<?php echo get_option('wacf7-wassame-mobile'); ?>">
-				<h2>2. <?php echo __('Save your settings', 'whatsapp-contact-form-7'); ?></h2>
-				<input type="submit" name="pro-submit" id="submit" class="button button-primary" value="<?php echo __('Save Changes', 'whatsapp-contact-form-7'); ?>">
-				
-			</form>
-			<form method="post" action="">
-				<?php
-					$option1 = get_option('wacf7-wassame-key');
-				 	if(!empty($option1)){ ?>
-						<h2>3. <?php echo __('Link your key with this Wordpress installation', 'whatsapp-contact-form-7'); ?></h2>
-						<div class="update-nag"><span style="font-size:12px; color:gray;"><?php echo __('Link your key with this Wordpress installation providing your mobile number where you want us to send the WhatsApp messages to.', 'whatsapp-contact-form-7'); ?> <span style="color:red;"><?php echo __('This cannot be undone!', 'whatsapp-contact-form-7'); ?></span></span></div>
-						<table class="form-table">
-							<tbody>
-								<tr>
-									<th scope="row"><label for="mailserver_url">Mobile</label></th>
-									<td><input type="text" name="number" value="<?php echo get_option('wacf7-wassame-mobile'); ?>" placeholder="<?php echo __('Mobile phone', 'whatsapp-contact-form-7'); ?>"> 
-										<?php 
-										if($option2 == 0){ 
-											echo '<button name="verify" class="button button-primary" type="submit">'.__('Link!', 'whatsapp-contact-form-7').'</button>'; 
-										}else{ 
-											echo '<button name="update" class="button button-primary" type="submit">'.__('Update mobile!', 'whatsapp-contact-form-7').'</button>'; 
-										} 
-										?> 
-									</td>
-								</tr>
-							</body>
-						</table>
-						<div class="update-nag" style="margin-top:0;"><span style="font-size:12px; color:gray;"><b><?php echo __('Be sure to include your country code, example', 'whatsapp-contact-form-7'); ?>:</b> </br>- (<?php echo __('Spain', 'whatsapp-contact-form-7'); ?>) "<b style="color:red;">+34 650 873 629</b>" <?php echo __('would become', 'whatsapp-contact-form-7'); ?> "<b style="color:green;">34650873629</b>"</br>- (UK) "<b style="color:red;">+07771574114</b>" <?php echo __('would become', 'whatsapp-contact-form-7'); ?> "<b style="color:green;">447771574114</b>"</br><?php echo __('Note: You can change the mobile number at any time once linked!', 'whatsapp-contact-form-7'); ?></span></div>
-						
-				<?php 
-					}
-					if(!empty($option1) && $option2 == 1 && $pro == 'on'){
-						echo '<div class="wacf7-success"><b>'.__('Successfully linked & enabled!', 'whatsapp-contact-form-7').'</b> '.__('Now go and try your contact form out!', 'whatsapp-contact-form-7').'</div>';	
-					}
-					elseif(!$pro && !empty($option1) && $option2 == 1){
-						echo '<div class="wacf7-warning"><b>'.__('Disabled!', 'whatsapp-contact-form-7').'</b> '.__('The pro version is currently disabled', 'whatsapp-contact-form-7').'</div>';
-					}
-				 ?>
-			</form>
-			<?php 
-				}else{
-					?>
-					<form method="post" action="">
-						<div class="update-nag"><span style="font-size:12px; color:gray;"><?php echo __('In the free version you can send yourself a WhatsApp message (Contact form filled in notice) by inserting your credentials below, be aware that using WART to retrieve credentials could block your mobile phone\'s WhatsApp version, this is why we offer a', 'whatsapp-contact-form-7'); ?> <a href="?page=whatsapp-contact-form-7-settings&tab=pro-version"><?php echo __('pro service', 'whatsapp-contact-form-7'); ?></a> <?php echo __('for those who only wish to get the message forwarded to they\'re mobile WhatsApp account!', 'whatsapp-contact-form-7'); ?></span></span></div>
-						<h3><?php echo __('Enter your sender WhatsApp account credentials', 'whatsapp-contact-form-7'); ?></h3>
-						<div class="form-group wame-label" style="margin-bottom:10px;">
-						    <label style="width:400px; display:block;" for="mobile-number"><?php echo __('WhatsApp Mobile number', 'whatsapp-contact-form-7'); ?></label>
-							    <input style="width:200px;" type="text" class="form-control" name="wacf7-msisdn" placeholder="<?php echo __('Enter WhatsApp msisdn', 'whatsapp-contact-form-7'); ?>" data-emoji_font="true" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol', Symbola, EmojiSymbols !important;" value="<?php echo get_option('wacf7-msisdn'); ?>"></br>
-								<span style="color:gray; font-size:12px;"><?php echo __('Your mobile number, including country code, example: 34659572846 (Spain) or 447230399814 (UK)', 'whatsapp-contact-form-7'); ?></span>
+		<div class="wrap">			
+			<form method="post" action="options.php">
+				<div class="boot-content">
+					<div class="boot-contpad">
+			          	<div class="row">
+							<div class="col-md-8">
+								<div class="row">
+					                <div class="col-md-6">
+					  				   	<div class="boot-box">
+					  				   	 	<h3><!--<img style="width:30px; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plug-anonymous.png">--> WhatsApp Contact Form 7 Integration</h3>
+											<?php echo settings_fields( 'whatsapp_contact_form_7' ); ?>
+											<?php do_settings_sections( 'whatsapp_contact_form_7' ); ?>
+											<div class="form-group wame-label" style="margin-bottom:10px;">
+											    <label for="mobile-number"><?php echo __( 'WhatsApp Mobile number' , 'whatsapp_contact_form_7'); ?></label>
+												    <input type="text" class="form-control" name="wacf7_msisdn" placeholder="<?php echo __( 'WhatsApp number' , 'whatsapp_contact_form_7'); ?>" data-emoji_font="true" value="<?php echo get_option('wacf7_msisdn'); ?>">
+													<span style="color:gray; font-size:12px;"><?php echo __( 'The mobile number, including country code and without "+", example: 34659572846 (Spain) or 447230399814 (UK)' , 'whatsapp_contact_form_7'); ?></span>
+											</div>
+											<hr>
+											<div class="form-group" style="margin-bottom:10px;">
+											    <label class="wame-label" for="mobile-number"><?php echo __( 'WhatsApp password' , 'whatsapp_contact_form_7'); ?></label>
+											    <input type="text" class="form-control" name="wacf7_password" placeholder="<?php echo __( 'WhatsApp password' , 'whatsapp_contact_form_7'); ?>" value="<?php echo get_option('wacf7_password'); ?>">
+												<span style="color:gray; font-size:12px;"><?php echo __( 'The WhatsApp password obtained through the' , 'whatsapp_contact_form_7'); ?> <a target="_blank" href="http://wassame.com/tool/register-whatsapp-account/"><?php echo __( 'WhatsApp registration tool' , 'whatsapp_contact_form_7'); ?></a></span>
+											</div>
+											<hr>
+											<div class="form-group" style="margin-bottom:10px;">
+											    <label class="wame-label" for="mobile-number"><?php echo __( 'WhatsApp ID' , 'whatsapp_contact_form_7'); ?></label>
+											    <input type="text" class="form-control" name="wacf7_id" placeholder="<?php echo __( 'WhatsApp ID' , 'whatsapp_contact_form_7'); ?>" value="<?php echo get_option('wacf7_id'); ?>">
+												<span style="color:gray; font-size:12px;"><?php echo __( 'The WhatsApp ID obtained through the' , 'whatsapp_contact_form_7'); ?> <a target="_blank" href="http://wassame.com/tool/create-whatsapp-id/"><?php echo __( 'WhatsApp ID creation tool' , 'whatsapp_contact_form_7'); ?></a></span>
+											</div>
+											<hr>
+											<div class="form-group" style="margin-bottom:10px;">
+											    <label  class="wame-label" for="mobile-number"><?php echo __( 'Display Name' , 'whatsapp_contact_form_7'); ?></label>
+											    <input type="text" class="form-control" name="wacf7_display_name" placeholder="<?php echo __( 'Display name' , 'whatsapp_contact_form_7'); ?>" value="<?php echo get_option('wacf7_display_name'); ?>">
+												<span style="color:gray; font-size:12px;"><?php echo __( 'This is the name that show when the messages arrives (notifiaction)' , 'whatsapp_contact_form_7'); ?></span>
+											</div>
+											<hr>
+											<div class="form-group" style="margin-bottom:10px;">
+											    <label  class="wame-label" for="mobile-number"><?php echo __( 'Send to' , 'whatsapp_contact_form_7'); ?></label>
+											    <input type="text" class="form-control" name="wacf7_send_to" placeholder="<?php echo __( 'Send to' , 'whatsapp_contact_form_7'); ?>" value="<?php echo get_option('wacf7_send_to'); ?>">
+												<span style="color:gray; font-size:12px;"><?php echo __( 'The mobile number you want the messages sent to, including country code and without "+", example: 34659572846 (Spain) or 447230399814 (UK)' , 'whatsapp_contact_form_7'); ?></span>
+											</div>
+					  				   	</div>     
+					                </div>
+					                <div class="col-md-6">
+					   				  	<div class="boot-box">
+											<img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/wassamelogo.png">
+					   				   	 	<h3><?php echo __( 'Important information' , 'whatsapp_contact_form_7'); ?></h3>
+											<p style="color:red;"><?php echo __( 'If you do not own your WhatsApp credentials, you may obtain them by using the <a target="_blank" href="http://wassame.com/tool/register-whatsapp-account/">registration tool</a>, (Please be aware that trying to obtain your WhatsApp password with an already existing account on mobile could permanently break your mobile version WhatsApp, If you would like to<b>, if you are lost </b>, contact us at <a target="_blank" href="http://wassame.com/contact-us/">Wassame.com</a>' , 'whatsapp_contact_form_7'); ?></p>
+											<hr>
+											<p><?php echo __( 'Once you have set up your WhatsApp account on the left and placed a number the message should get sent to you can start using the plugin!' , 'whatsapp_contact_form_7'); ?></p>
+											
+					   				   	</div>
+					                </div>
+								</div>
+							</div>
+			                <div class="col-md-4">
+								<div class="widget list-group">
+									<h3><?php echo __( 'Wassame\'s Free WhatsApp Tools', 'whatsapp_contact_form_7'); ?></h3>
+										<a target="_blank" href="http://wassame.com/tool/create-whatsapp-id/" class="list-group-item active"><?php echo __( 'Create WhatsApp ID' , 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/whatsapp-account-login-checker/" class="list-group-item "><?php echo __( 'WhatsApp account login checker', 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/whatsapp-account-block-checker/" class="list-group-item "><?php echo __( 'WhatsApp account block checker', 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/register-whatsapp-account/" class="list-group-item "><?php echo __( 'Register WhatsApp account', 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/view-last-whatsapp-connection/" class="list-group-item "><?php echo __( 'View last WhatsApp connection', 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/view-whatsapp-profile-picture/" class="list-group-item "><?php echo __( 'View WhatsApp profile picture', 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/update-whatsapp-status/" class="list-group-item "><?php echo __( 'Update WhatsApp status', 'whatsapp_contact_form_7'); ?></a>
+										<a target="_blank" href="http://wassame.com/tool/update-whatsapp-profile-picture/" class="list-group-item "><?php echo __( 'Update WhatsApp profile picture', 'whatsapp_contact_form_7'); ?></a>
+								</div>
+			   				   	<h3><?php echo __( 'Free WhatsApp plugins', 'whatsapp_contact_form_7'); ?></h3>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="boot-plugin">
+											<div class="boot-installed"><?php echo __( 'Installed', 'whatsapp_contact_form_7'); ?></div>
+											<a target="_blank" href=""><img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plugin-cf7.png"></a>
+										</div>
+									</div>
+									<div class="col-md-6">
+		
+									</div>
+								</div>
+								<hr>
+								<h3><?php echo __( 'Paid WhatsApp plugin', 'whatsapp_contact_form_7'); ?></h3>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="boot-plugin">
+											<?php
+												if( !get_option('wame_active') ) {
+													echo '<div class="boot-type">'.__( 'Buy', 'whatsapp_contact_form_7').'</div>';
+												}
+												else{
+													echo '<div class="boot-installed">'.__( 'Installed', 'whatsapp_contact_form_7').'!</div>';
+												}
+											?>
+											<a target="_blank" href=""><img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plugin-anonymous.png"></a>
+										</div>
+									</div>
+									<div class="col-md-6">
+		
+									</div>
+								</div>
+			                </div>
+							<div class="boot-clear"></div>
+			            </div>
+						<div class="row">
+							<div class="col-md-12">
+								<?php submit_button(); ?>
+							</div>
 						</div>
-						<div class="form-group" style="margin-bottom:10px;">
-						    <label style="width:400px; display:block;" class="wame-label" for="mobile-number"><?php echo __('WhatsApp password', 'whatsapp-contact-form-7'); ?></label>
-						    <input style="width:300px;" type="text" class="form-control" name="wacf7-password" placeholder="<?php echo __('Enter WhatsApp password', 'whatsapp-contact-form-7'); ?>" value="<?php echo get_option('wacf7-password'); ?>"></br>
-							<span style="color:gray; font-size:12px;"><?php echo __('Youre WhatsApp password obtained through WART', 'whatsapp-contact-form-7'); ?></span>
-						</div>
-						<div class="form-group" style="margin-bottom:10px;">
-						    <label style="width:400px; display:block;" class="wame-label" for="mobile-number"><?php echo __('WhatsApp ID', 'whatsapp-contact-form-7'); ?></label>
-						    <input style="width:500px;" type="text" class="form-control" name="wacf7-id" placeholder="<?php echo __('Enter WhatsApp ID', 'whatsapp-contact-form-7'); ?>" value="<?php echo get_option('wacf7-id'); ?>"></br>
-							<span style="color:gray; font-size:12px;"><?php echo __('Your WhatsApp ID obtained through WART', 'whatsapp-contact-form-7'); ?></span>
-						</div>
-						<div class="form-group" style="margin-bottom:10px;">
-						    <label style="width:400px; display:block;" class="wame-label" for="mobile-number"><?php echo __('Display Name', 'whatsapp-contact-form-7'); ?></label>
-						    <input type="text" class="form-control" name="wacf7-display-name" placeholder="<?php echo __('Enter display name', 'whatsapp-contact-form-7'); ?>" value="<?php echo get_option('wacf7-display-name'); ?>"></br>
-							<span style="color:gray; font-size:12px;"><?php echo __('This is the name that show when the messages arrives (In notifiactions)', 'whatsapp-contact-form-7'); ?></span>
-						</div>
-						<input type="submit" name="free-submit" id="submit" class="button button-primary" value="<?php echo __('Save Changes', 'whatsapp-contact-form-7'); ?>">
-					</form>
-					<?php
-				}
-			?>
+					</div>
+					<div class="boot-clear"></div>
+			  	</div>
+			</form>											
 		</div>
 		<?php
 	}
-	function admin_menu () {
-		add_options_page(__('Whatsapp contact form 7 Settings', 'whatsapp-contact-form-7'),__('Whatsapp Contact settings', 'whatsapp-contact-form-7'),'read','whatsapp-contact-form-7-settings', array(  'WhatsAppContactForm7_Admin', 'settings' ) );
+	public static function admin_menu() {
+		add_options_page(__('Whatsapp contact form 7 Settings', 'whatsapp_contact_form_7'),__('Whatsapp CF7 integration', 'whatsapp_contact_form_7'), 'read', 'whatsapp-contact-form-7-settings', array(  'WhatsAppContactForm7_Admin', 'settings' ) );
 	}
 }
 
