@@ -37,11 +37,19 @@ This section describes how to install the plugin and get it working.
 
 = How can I obtain my WhatsApp credentials? =
 
-Search for WART on github 
+Search for WART on github or use the tool on Wassame http://wassame.com/tool/register-whatsapp-account/ 
 
-= Why is the system not sending me a WhatsApp when I submit the form? 
+= Why is the system not sending me a WhatsApp when I submit the form? =
 
-You should double check your WhatsApp credentials are correct, there is no checking involved, if the contact form fails to send, your credentials are probably incorrect!
+You should double check your WhatsApp credentials are correct, if the contact form fails to send, your credentials are probably incorrect! - You can always do a login check to see if your account is still working.
+
+= How do I make a login check of my WhatsApp account? =
+
+You can use the free to use login checker tool hosted on Wassame: http://wassame.com/tool/whatsapp-account-login-checker/, if you account failed to login, try using the block checker tool to make sure its not blocked by WhatsApp.
+
+= How can I debug? =
+
+You should activate error logging on you Wordpress installation, When you use the plugin it will log the errors for you.
 
 
 == Changelog ==
