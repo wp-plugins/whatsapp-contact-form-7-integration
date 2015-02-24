@@ -44,7 +44,7 @@ function wpcf7_whatsapp_before_send_mail( $contactform ) {
 				$wa->sendMessageComposing($wacf7_number);
 				$result = $wa->sendMessage($wacf7_send_to, 'Somebody has contacted you on your Contact form 7!');
 				if(!$result){
-					error_log('Failed send the message to '.$wacf7_number);
+					error_log('Failed send the message to '.$wacf7_send_to);
 				}
 			}
 			else{

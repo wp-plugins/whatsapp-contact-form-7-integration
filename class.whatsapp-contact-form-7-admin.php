@@ -366,7 +366,7 @@ class WhatsAppContactForm7_Admin {
 									<div class="col-md-6">
 										<div class="boot-plugin">
 											<div class="boot-installed"><?php echo __( 'Installed', 'whatsapp_contact_form_7'); ?></div>
-											<a target="_blank" href=""><img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plugin-cf7.png"></a>
+											<a target="_blank" href="http://wassame.com/plugins/whatsapp-contact-form-7/"><img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plugin-cf7.png"></a>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -386,7 +386,7 @@ class WhatsAppContactForm7_Admin {
 													echo '<div class="boot-installed">'.__( 'Installed', 'whatsapp_contact_form_7').'!</div>';
 												}
 											?>
-											<a target="_blank" href=""><img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plugin-anonymous.png"></a>
+											<a target="_blank" href="http://wassame.com/product/wordpress-plugins/whatsapp-anonymous-sender/"><img style="width:100%; height:auto;" src="<?php echo WACF7__PLUGIN_URL; ?>assets/plugin-anonymous.png"></a>
 										</div>
 									</div>
 									<div class="col-md-6">

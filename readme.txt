@@ -48,3 +48,6 @@ You should double check your WhatsApp credentials are correct, there is no check
 
 = 1.0.0 =
 * Initial release
+
+= 1.1.0 =
+* Major update, new design, error logging and most functionality changed
